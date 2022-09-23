@@ -10,12 +10,12 @@ import rospy
 import pygame
 import sys
 from std_srvs.srv import SetBool, SetBoolResponse
-from robot import Robot
-from ohm_mecanum_sim.srv import Spawn, Kill, SpawnRequest, SpawnResponse, KillRequest, KillResponse
+from edu_fleet_sim import Robot
+from edu_fleet_sim.srv import Spawn, Kill, SpawnRequest, SpawnResponse, KillRequest, KillResponse
 from std_msgs.msg import String
 import numpy as np
 
-class Ohm_Mecanum_Simulator:
+class Simulator:
 
     def __init__(self, surface, rosname, windowtitle):
         self._surface = surface

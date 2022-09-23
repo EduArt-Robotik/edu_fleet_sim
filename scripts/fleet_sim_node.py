@@ -8,9 +8,10 @@
 
 import pygame
 import rospy
-from ohm_mecanum_simulator import Ohm_Mecanum_Simulator
-from robot import Robot
-from fleet import Fleet
+
+from edu_fleet_sim import Simulator
+from edu_fleet_sim import Robot
+from edu_fleet_sim import Fleet
 
 import numpy as np
 from math import cos, sin, pi, sqrt, acos
@@ -23,7 +24,7 @@ size = width, height = 1600, 900
 # Drawing surface
 surface = pygame.display.set_mode(size, pygame.HWSURFACE | pygame.DOUBLEBUF)
 
-sim = Ohm_Mecanum_Simulator(surface, "ohm_mecanum_sim", "Ohm Mecanum Simulator")
+sim = Simulator(surface, "edu_fleet_sim", "Eduart Fleet Simulation")
 
 ######### Fleet 1 ########
 # Robot 1

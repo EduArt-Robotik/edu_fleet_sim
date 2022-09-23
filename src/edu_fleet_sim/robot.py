@@ -16,7 +16,7 @@ from sensor_msgs.msg import Joy
 from std_msgs.msg import Float32MultiArray
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
-from ohm_mecanum_sim.msg import WheelSpeed
+from edu_fleet_sim.msg import WheelSpeed
 from copy import copy, deepcopy
 
 class Robot:
@@ -72,9 +72,9 @@ class Robot:
         self._max_omega = self._max_speed / (self._wheel_base/2 + self._track/2)
 
         self._name              = name
-        img_path                = os.path.join(os.path.dirname(__file__), "../images/mecanum_edu_1.png")
-        img_path2               = os.path.join(os.path.dirname(__file__), "../images/mecanum_edu_2.png")
-        img_path_crash          = os.path.join(os.path.dirname(__file__), "../images/mecanum_crash_2.png")
+        img_path                = os.path.join(os.path.dirname(__file__), "../../../../share/edu_fleet_sim/images/mecanum_edu_1.png")
+        img_path2               = os.path.join(os.path.dirname(__file__), "../../../../share/edu_fleet_sim/images/mecanum_edu_2.png")
+        img_path_crash          = os.path.join(os.path.dirname(__file__), "../../../../share/edu_fleet_sim/images/mecanum_crash_2.png")
         self._symbol            = pygame.image.load(img_path)
         self._symbol2           = pygame.image.load(img_path2)
         self._symbol_crash      = pygame.image.load(img_path_crash)

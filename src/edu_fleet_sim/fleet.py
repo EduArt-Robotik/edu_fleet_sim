@@ -14,8 +14,8 @@ from math import cos, sin, pi, sqrt, acos, atan2
 from geometry_msgs.msg import PoseStamped, Twist
 from sensor_msgs.msg import Joy
 from nav_msgs.msg import Odometry
-from ohm_mecanum_sim.msg import WheelSpeed
-from ohm_mecanum_sim.srv import Spawn, Kill, SpawnRequest, SpawnResponse, KillRequest, KillResponse
+from edu_fleet_sim.msg import WheelSpeed
+from edu_fleet_sim.srv import Spawn, Kill, SpawnRequest, SpawnResponse, KillRequest, KillResponse
 from robot import Robot
 from copy import copy, deepcopy
 

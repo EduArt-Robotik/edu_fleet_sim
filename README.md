@@ -1,44 +1,65 @@
-# ohm_mecanum_sim
-This package comprises a pygame-based robot simulation for mecanum-driven kinematic concepts.
+# edu_fleet_sim
+This package comprises a pygame-based robot simulation for multiple robots organized on one or multiple fleets.
 
 ![Screenshot of Robot Simulator](/images/screenshot.png)
 
 Tests have been performed with ROS melodic, albeit the used python versions differ. While ROS melodic uses python2.x, the simulator need python3. The  reason is, that ROS noetic will require python3. In order to make the simulator work with ROS melodic, you can follow the installation hints below.
 
-## Prerequisites on Ubuntu 18.04
-Installing python3 aside python2 can be done with pip:
+## Prerequisites
+
+This package needs following dependencies to be installed.
+* A ROS1 distribution. Please pick a release from the [ROS Website](http://wiki.ros.org/ROS/Installation). However this package was tested with [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu).
+*   pygame, that could be installed via apt if you on a Debian/Ubuntu system, or using pip that should work in any case:
+
+    ```console
+    ~$ sudo apt install python3-pygame
+    ```
+    or
+    ```console
+    ~$ pip3 install --user pygame
+    ```
+
+* To control the robots or fleets the ROS package [edu_virtual_joy](https://github.com/EduArt-Robotik/edu_virtual_joy) is recommended. In this case the provided launch file (see below) could be used. However the alternative is to use [geometry_msgs/Twist](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html) message to control the robots. Or the [joy messages](http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/Joy.html), where the three first axes are used:
+    * axes[0] == x,
+    * axes[1] == y,
+    * axes[2] == omega
+
+Is the alternative option used a control message for each robot fleet has to be provided. The topic names are:
+    * fleet1/cmd_vel
+    * fleet2/cmd_vel
+    * overall_fleet/cmd_vel
+
+## Building and Installing Package
+
+To build the package, simply catkin has to been called in your root directory of the workspace where the edu_fleet_sim was installed. Note: if you are new to ROS please see this [Website](http://wiki.ros.org/ROS/Tutorials/BuildingPackages) for further information.
+
 ```console
-user@machine:~$ sudo apt install python3 python-pip python3-pip python-catkin-tools
-user@machine:~$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-user@machine:~$ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 2
-user@machine:~$ pip install -U defusedxml rospkg pygame pycryptodomex gnupg pyside2 pydot numpy
-```
-## Starting the simulator
-Go to your catkin workspace / execute the following commands (replace the path to your catkin workspace accordingly):
-```console
-user@machine:~$ roscore &
-user@machine:~$ cd workspace/catkin_ws
-user@machine:~/workspace/catkin_ws$ catkin_make
-user@machine:~/workspace/catkin_ws$ source devel/setup.bash
-user@machine:~/workspace/catkin_ws$ python3 src/ohm_mecanum_sim/scripts/ohm_mecanum_sim_node.py
+~/<workspace>/$ catkin_make install
+~/<workspace>/$ source install/setup.bash # maybe necessary if not done by some script like .bashrc
 ```
 
-## Moving around the robots
-One can use different tools to make the robot move:
-- Publish joy messages to a certain robot instance (if you have a joystick)
+## Starting the Simulator
+
+Note: if you are new to ROS, please make sure that the install/setup.bash has been sourced in your workspace (see above). Also important: before a ROS node can be started, the ROS master must be running. This happens automatically when roslaunch is used, but not when rosrun is used.
+
+The application could been started by an ROS launch file including a control application, or as node where some parameter has to be set manually. Both options are described below:
+
+### Using rosrun Command
+
+The application is started as ROS node with the following command:
+
 ```console
-user@machine:~$ rosrun joy joy_node joy:=/robot1/joy
+~/rosrun edu_fleet_sim fleet_sim_node
 ```
-- Publish a twist message manually by using rostopic pub
+
+The topics of the ROS node are adjusted by following command:
+
 ```console
-user@machine:~$ rostopic pub -r 10 /robot1/cmd_vel geometry_msgs/Twist ...
+~/rosrun edu_fleet_sim fleet_sim_node fleet1/cmd_vel:=<your custom topic> fleet2/cmd_vel:=<your custom topic> overall_fleet:=<your custom topic>
 ```
-- Use a keyboard tool, like teleop_twist_keyboard (install ros-melodic-teleop-twist-keyboard first)
+
+### Using Prepared Launch File
+
 ```console
-user@machine:~$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/robot1/cmd_vel
+~/roslaunch edu_fleet_sim fleet_sim_demo
 ```
-- Publish wheel speed messages (individual angular velocity for each wheel)
-```console
-user@machine:~$ rostopic pub -r 10 /robot1/wheel_speed ohm_mecanum_sim/WheelSpeed ...
-```
-- ... or write your own node.
