@@ -1,0 +1,17 @@
+<launch>
+    <!-- Launches the two fleets demo together with three virtual joy nodes for controlling the fleet. -->
+    <node name="fleet_simulator" pkg="edu_fleet_sim" type="fleet_sim_node.py" output="screen">
+        <remap from="fleet1/joy" to="fleet1/joy"/>
+        <remap from="fleet2/joy" to="fleet2/joy"/>
+    </node>
+
+    <node name="fleet1_control" pkg="edu_virtual_joy" type="edu_virtual_joy_node.py">
+        <param name="mecanum" type="int" value="1"/>
+        <remap from="joy" to="fleet1/joy"/>
+    </node>
+
+    <node name="fleet2_control" pkg="edu_virtual_joy" type="edu_virtual_joy_node.py">
+        <param name="mecanum" type="int" value="1"/>
+        <remap from="joy" to="fleet2/joy"/>
+    </node>
+</launch>
