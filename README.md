@@ -61,5 +61,5 @@ The topics of the ROS node are adjusted by following command:
 ### Using Prepared Launch File
 
 ```console
-~/roslaunch edu_fleet_sim fleet_sim_demo
+~/roslaunch edu_fleet_sim fleet_sim_demo.launch
 ```

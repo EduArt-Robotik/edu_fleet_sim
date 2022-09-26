@@ -70,7 +70,7 @@ fleet1 = Fleet(T_fleet1, "fleet1")
 fleet1.add_robot(T1, "robot1")
 fleet1.add_robot(T2, "robot2")
 fleet1.add_robot(T3, "robot3")
-fleet1.add_robot(T4, "robot4")
+fleet1.add_robot(T4, "robot4") 
 ##########################
 
 ######### Fleet 2 ########
