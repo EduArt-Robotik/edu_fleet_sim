@@ -6,10 +6,12 @@
     </node>
 
     <node name="fleet1_control" pkg="edu_virtual_joy" type="edu_virtual_joy_node.py">
+        <param name="mecanum" type="int" value="1"/>
         <remap from="joy" to="fleet1/joy"/>
     </node>
 
     <node name="fleet2_control" pkg="edu_virtual_joy" type="edu_virtual_joy_node.py">
+        <param name="mecanum" type="int" value="1"/>
         <remap from="joy" to="fleet2/joy"/>
     </node>
 </launch>

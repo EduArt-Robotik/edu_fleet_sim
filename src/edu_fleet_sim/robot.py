@@ -45,9 +45,9 @@ class Robot:
     # Animation counter, this variable is used to switch image representation to pretend a driving robot
     _animation_cnt      = 0
 
-    def __init__(self, T, name):
-        self._T_pose_init =deepcopy(T)
-        self._T_pose = deepcopy(T)
+    def __init__(self, T_init, name):
+        self._T_pose_init = deepcopy(T_init)
+        self._T_pose      = deepcopy(T_init)
 
         self._reset = False
         self._coords = [self._T_pose[0, 2], self._T_pose[1, 2]]
@@ -58,9 +58,9 @@ class Robot:
         lxly = (self._wheel_base/2 + self._track/2) / self._wheel_radius
         rinv = 1/self._wheel_radius
         self._T_kinematic = np.matrix([[rinv, -rinv, -lxly],
-                            [-rinv, -rinv, -lxly],
-                            [ rinv,  rinv, -lxly],
-                            [-rinv,  rinv, -lxly]])
+                                      [-rinv, -rinv, -lxly],
+                                      [ rinv,  rinv, -lxly],
+                                      [-rinv,  rinv, -lxly]])
                             
         # Inverse of matrix is used for setting individual wheel speeds
         self._Tinv_kinematic = np.linalg.pinv(self._T_kinematic)
@@ -173,9 +173,9 @@ class Robot:
             o.pose.pose.position = p.pose.position
             o.pose.pose.orientation = p.pose.orientation
             o.child_frame_id = "base_link"
-            o.twist.twist.linear.x = v[0];
-            o.twist.twist.linear.y = v[1];
-            o.twist.twist.angular.z = self._omega;
+            o.twist.twist.linear.x = v[0]
+            o.twist.twist.linear.y = v[1]
+            o.twist.twist.angular.z = self._omega
             self._pub_odom.publish(o)
 
             if(self._reset):
